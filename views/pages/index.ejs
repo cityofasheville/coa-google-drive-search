@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ../partials/header.ejs %>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12">
+        <form action="" method="post" id="searchForm">
+          <div class="input-group">
+            <input id="searchInput" name="searchInput" type="text" class="form-control" placeholder="Enter word or phrase to search for. Surround phrases in double quotes for best results." value="<%= searchTerm %>">
+            <span class="input-group-btn">
+              <button id="searchButton" class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-search"></span> Search</button>
+            </span>
+          </div>
+          </form>
+        </div>
+      </div> <!-- row -->
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="loader" id="loadingAnimation" style="display:none;">Loading...</div>
+          <% if (! errorFound && searchTermEntered && matchingResults.length > 0) { %>
+            <ul id="resultsList">
+             <% for (var i=0; i < matchingResults.length; i++) { %>
+                <li><a href='<%=matchingResults[i].webContentLink%>'><%= matchingResults[i].name %></a></li>
+            <% } %>
+            </ul>
+          <% } else if (searchTermEntered && errorFound) { %>
+            <div class="alert alert-danger">
+              An error was encountered. Please ensure there are no back slashes (\) in your search phrase.
+            </div>
+          <% } else if (searchTermEntered && matchingResults.length == 0) { %>
+            <div class="alert alert-warning">
+              No results found.
+            </div>
+          <% } %>
+        </div>
+    </div> <!-- row -->
+
+    <script type="text/javascript">
+      var searchForm = document.getElementById("searchForm");
+      if(searchForm.addEventListener){
+          searchForm.addEventListener("submit", searchLoading, false);  //Modern browsers
+      }else if(searchForm.attachEvent){
+          searchForm.attachEvent('onsubmit', searchLoading);            //Old IE
+      }
+
+      function searchLoading() {
+        var alerts = document.getElementsByClassName("alert");
+        for (var i = 0; i < alerts.length; ++i) {
+            alerts[i].style.display = "none";
+        }
+        document.getElementById("loadingAnimation").style.display = "block";
+        document.getElementById("searchButton").disabled = true;
+        document.getElementById("resultsList").style.display = "none";
+      }
+    </script>
+  </body>
+</html>

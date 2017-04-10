@@ -1,0 +1,20 @@
+{
+  "name": "coa-google-drive-search",
+  "version": "0.2.5",
+  "description": "An app to search public folders in City of Asheville's Google drive",
+  "engines": {
+    "node": "5.9.1"
+  },
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "body-parser": "^1.17.0",
+    "ejs": "2.4.1",
+    "express": "4.13.3",
+    "google-auth-library": "^0.10.0",
+    "googleapis": "^17.1.0",
+    "promise": "^7.1.1"
+  }
+}
