@@ -77,7 +77,7 @@ function filesContainingString(auth, folderId = '', searchString='Bojangles') {
     var service = google.drive('v3');
       service.files.list({
         auth: auth,
-        q: "'" + folderId + "' in parents and mimeType != 'application/vnd.google-apps.folder' and (name contains '" + searchString + "' or fullText contains '" + searchString + "')",
+        q: "('" + folderId + "' in parents and name contains '" + searchString + "') or ('" + folderId + "' in parents and fullText contains '" + searchString + "')",
         fields: "nextPageToken, files(id, name, mimeType, webContentLink)"
       }, function(err, response) {
         if (err) {
